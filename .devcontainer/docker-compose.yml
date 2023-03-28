@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: node:14
+    image: node:18
     container_name: express_app
     working_dir: /app
     volumes:
@@ -16,7 +16,7 @@ services:
       - 3000:3000
 
   db:
-    image: mongo:4.4
+    image: mongo:latest
     container_name: mongo_db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
