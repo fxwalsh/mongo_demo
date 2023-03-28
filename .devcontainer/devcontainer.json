@@ -1,0 +1,12 @@
+{
+	"name": "Express.js and MongoDB",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/app",
+	"shutdownAction": "stopCompose",
+	"runServices": ["app", "db"],
+	"forwardPorts": [3000, 27017],
+	"settings": {
+	  "terminal.integrated.defaultProfile.linux": "/bin/sh"
+	}
+  }
