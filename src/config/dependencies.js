@@ -1,12 +1,14 @@
 import InMemoryRepository from '../repositories/InMemoryRepository';
 import userSchema from '../validators/userSchema';
 import MongoUserRepository from '../repositories/MongoUserRepository';
+import Authenticator from '../security/BCryptAuthenticator';
 
 const buildDependencies = () => {
   const dependencies = {
   };
 
   dependencies.userSchema = userSchema;
+  dependencies.authenticator = new Authenticator();
 
   if (process.env.DATABASE_DIALECT === "in-memory") {
     dependencies.usersRepository = new InMemoryRepository();
