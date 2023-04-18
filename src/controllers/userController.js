@@ -31,12 +31,8 @@ export default (dependencies) => {
         const authHeader = request.headers.authorization;
 
         // Treatment
-   
         const accessToken = authHeader.split(" ")[1];
-        console.log(accessToken)
-        console.log("After")
         await userService.verify(accessToken, dependencies);
-
         //output
         next();
     }catch(err){

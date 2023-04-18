@@ -19,9 +19,7 @@ export default {
     return newToken;
   },
   verify:   async (submittedToken,{usersRepository, token}) => {
-    console.log(submittedToken)
     const decoded = await token.decode(submittedToken);
-    console.log(decoded)
     const user = await usersRepository.find({email:decoded.email});
     if (!user[0]) {
         throw new Error('Bad token');
