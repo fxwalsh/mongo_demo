@@ -2,6 +2,7 @@ import InMemoryRepository from '../repositories/InMemoryRepository';
 import userSchema from '../validators/userSchema';
 import MongoUserRepository from '../repositories/MongoUserRepository';
 import Authenticator from '../security/BCryptAuthenticator';
+import Token from '../security/JWTToken';
 
 const buildDependencies = () => {
   const dependencies = {
@@ -9,6 +10,7 @@ const buildDependencies = () => {
 
   dependencies.userSchema = userSchema;
   dependencies.authenticator = new Authenticator();
+  dependencies.token = new Token();
 
   if (process.env.DATABASE_DIALECT === "in-memory") {
     dependencies.usersRepository = new InMemoryRepository();

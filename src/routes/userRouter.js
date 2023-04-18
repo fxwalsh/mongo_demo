@@ -8,10 +8,13 @@ const createRouter = (dependencies) => {
     const controller = userController(dependencies);
     const validationController = userValidationController(dependencies);
     router.route('/')
-        .post(validationController.validateUser,controller.createUser);
+        .post(validationController.validateUser, controller.createUser);
 
     router.route('/')
         .get(controller.listUsers);
+
+    router.route('/security/token')
+        .post(controller.authenticateUser);
 
     return router;
 };

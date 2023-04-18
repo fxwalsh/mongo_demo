@@ -8,5 +8,24 @@ export default {
   },
   find: ({ usersRepository }) => {
     return usersRepository.find();
-  }
+  },
+  authenticate: async (email, password, { usersRepository, authenticator, token }) => {
+    const users = await usersRepository.find({email: email});
+    const result = await authenticator.compare(password, users[0].password);
+    if (!result) {
+      throw new Error('Bad credentials');
+    }
+    const newToken = token.generate({ email: email });
+    return newToken;
+  },
+  verify:   async (submittedToken,{usersRepository, token}) => {
+    console.log(submittedToken)
+    const decoded = await token.decode(submittedToken);
+    console.log(decoded)
+    const user = await usersRepository.find({email:decoded.email});
+    if (!user[0]) {
+        throw new Error('Bad token');
+    }
+    return user.email;
+}
 };

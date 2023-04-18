@@ -16,7 +16,5 @@ export default class extends Authenticator {
         } catch (error) {
             return false;
         }
-
-
     }
 }
