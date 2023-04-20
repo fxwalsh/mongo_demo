@@ -27,8 +27,8 @@ export default class extends UserRepository {
     return accountEntity;
   }
 
-  async find() {
-    const accounts = await this.model.find();
+  async find(query) {
+    const accounts = await this.model.find(query);
     return accounts.map((result) => {
         return new User(result.id, result.name, result.email, result.password, result.dob, result.type);
     });
