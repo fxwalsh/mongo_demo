@@ -4,11 +4,15 @@ export default (dependencies) => {
 
     const createUser = async (request, response, next) => {
         // Input
-        const { name, email, password, dob, type } = request.body;
-        // Treatment
-        const user = await userService.registerUser(name, email, password, dob, type, dependencies);
-        //output
-        response.status(201).json(user)
+        try {
+            const { name, email, password, dob, type } = request.body;
+            // Treatment
+            const user = await userService.registerUser(name, email, password, dob, type, dependencies);
+            //output
+            response.status(201).json(user)
+        } catch (err) {
+            next(err);
+        }
     };
     const listUsers = async (request, response, next) => {
         // Treatment
@@ -26,18 +30,18 @@ export default (dependencies) => {
         }
     };
     const verifyToken = async (request, response, next) => {
-        try { 
-        // Input
-        const authHeader = request.headers.authorization;
+        try {
+            // Input
+            const authHeader = request.headers.authorization;
 
-        // Treatment
-        const accessToken = authHeader.split(" ")[1];
-        await userService.verify(accessToken, dependencies);
-        //output
-        next();
-    }catch(err){
-        //Token Verification Failed
-        next(new Error(`Verification Failed ${err.message}`));
+            // Treatment
+            const accessToken = authHeader.split(" ")[1];
+            await userService.verify(accessToken, dependencies);
+            //output
+            next();
+        } catch (err) {
+            //Token Verification Failed
+            next(new Error(`Verification Failed ${err.message}`));
         }
     };
 

@@ -20,10 +20,13 @@ export default class extends UserRepository {
   }
 
     async persist(accountEntity) {
+  
     const {firstName, lastName, email, password, dob, type} = accountEntity;
     const result = new this.model({firstName, lastName, email, password, dob,type});
-    await result.save();
+    
+      await result.save();
     accountEntity.id=result.id;
+    
     return accountEntity;
   }
 

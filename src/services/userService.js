@@ -10,6 +10,7 @@ export default {
     return usersRepository.find();
   },
   authenticate: async (email, password, { usersRepository, authenticator, token }) => {
+    email=email.toLowerCase()
     const users = await usersRepository.find({email: email});
     const result = await authenticator.compare(password, users[0].password);
     if (!result) {

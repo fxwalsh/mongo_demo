@@ -11,13 +11,15 @@ dotenv.config()
 const port = process.env.PORT
 const dependencies = buildDependencies();
 db.init(); 
-
+const errHandler = (err, req,res,next )=>{
+  res.status(500).send(err.message);
+}
 const app = express();
 app.use(express.json())
-
+app.use(express.static('tests'));
 app.use('/api/users', createUsersRouter(dependencies));
 app.use('/api/movies', createMoviesRouter(dependencies));
-
+app.use(errHandler);
 app.listen(port, () => {
   console.info(`Server running at ${port}`);
 });
